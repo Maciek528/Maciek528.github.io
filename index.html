@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hello</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="main.css"/>
+	</head>
+
+
+<body>
+
+<audio id="black" src="media/black.mp3" type="audio/mpeg"></audio>
+<audio id="easy" src="media/nightlife.mp3" type="audio/mpeg"></audio>
+
+<img id="snow" src="media/black_snow.gif" style="display: block">
+<img id="ball" src="media/disco_ball.gif" style="display: none">
+
+<div id="welcome">
+	<h1 style="font-size: 60px"> Hello </h1>
+	<h4 style="font-size: 40px"> Type your name </h4>
+	<button id="click" onclick="myFunctionA()"> Enter </button>
+</div>
+
+<h1 id="num"> </h1>
+
+<img id="bomb" class="center" src="media/slow_explode.gif" alt="exploding bomb" style="width: 450px; height: 450px; display: none;">
+
+<script>
+var num = 0;
+var loop = "first";
+var numElem = document.getElementById("num");
+
+function myFunctionA() {
+    document.getElementById('bomb').style.display='block';
+    document.getElementById('snow').style.display='none';
+    document.getElementById('welcome').style.display='none';
+    document.getElementById('click').style.display='none';
+    setTimeout(myFunctionB, 2500); //3200 full duration
+}
+
+function myFunctionB() {
+	document.getElementById('black').play();
+	setTimeout(myFunctionC, 400);
+}
+
+function myFunctionC() {
+	document.getElementById('bomb').style.display='none';
+	document.body.style="background: #ff0000"; //red
+	var intervalID = setInterval(changeBackgroundColor, 465);
+}
+
+function changeBackgroundColor() {
+
+	if (num == 8) {
+		num = 1;
+	} else {
+		num++;
+	}
+
+	switch(num) {
+    case 1:
+        document.body.style="background: #ffff00"; // yellow
+        if (loop == "second")
+        	numElem.style.display ='none';
+        break;
+    case 2:
+        document.body.style="background: #ff0066" // pink
+        if (loop == "first")
+        	numElem.innerHTML = 1;
+        break;
+    case 3:
+        document.body.style="background: #009933" // green
+        numElem.style.display ='none';
+        break;
+    case 4:
+        document.body.style="background: #ff9900" // orange
+        numElem.style.display ='block';
+        if (loop == "first") {
+        	numElem.innerHTML = 2;
+        } else {
+            numElem.innerHTML = "How you";
+        }
+        break;
+    case 5:
+        document.body.style="background: #0000ff" // blue
+        numElem.style.display ='none';
+        break;
+    case 6:
+        document.body.style="background: #cc0099" // purple
+        numElem.style.display ='block';
+        if (loop == "first") {
+        	numElem.innerHTML = 4;
+        } else {
+            numElem.innerHTML = "doin'";
+        }
+        break;
+    case 7:
+        document.body.style="background: #00ffff" // aqua
+        if (loop == "first")
+        	numElem.innerHTML = 7;
+        else
+            numElem.style.display ='none';
+        break;
+    case 8:
+        document.body.style="background: #ff0000" // red
+        if (loop == "second") {
+            numElem.style.display ='block';
+            numElem.innerHTML = "Maciek";
+        	num = 9;
+        }
+        if (loop == "first") {
+        	numElem.innerHTML = 15;
+        	loop = "second";
+        }
+        break;
+    default:
+    	setTimeout(myFunctionD, 2000);
+    	myStopFunction();
+	}
+}
+
+function myStopFunction() {
+    clearInterval(intervalID);
+}
+
+function myFunctionD() {
+	document.body.style.cursor = 'pointer';
+	window.onclick = function() {
+        numElem.style.display ='none';
+		document.getElementById('black').pause();
+        document.body.style="background: #202024";
+        document.getElementById('ball').style.display='block';
+        document.getElementById('easy').play();
+        // document.body.style.cursor = 'default';
+	}
+}
+
+</script>
+
+
+</body>
+</html>
