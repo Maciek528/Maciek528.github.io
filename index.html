@@ -7,7 +7,6 @@
 		<link rel="stylesheet" href="main.css"/>
 	</head>
 
-
 <body>
 
 <audio id="black" src="media/black.mp3" type="audio/mpeg"></audio>
@@ -26,12 +25,22 @@
 
 <img id="bomb" class="center" src="media/slow_explode.gif" alt="exploding bomb" style="width: 450px; height: 450px; display: none;">
 
+<div id="survey">
+	<h4 id="disco" style="font-size: 40px"> Do you like disco? </h4>
+	<button id="yes" onclick="myFunctionE()"> Yes </button>
+	<button id="no" onmouseover="toYes(this)" onmouseout="toNo(this)" onclick="myFunctionE()"> <span id="notext"> No </span> </button>
+</div>
+
+
+
 <script>
 var num = 0;
 var loop = "first";
 var numElem = document.getElementById("num");
+var intervalID;
 
 function myFunctionA() {
+	  document.body.style="background: #808080"; // grey
     document.getElementById('bomb').style.display='block';
     document.getElementById('snow').style.display='none';
     document.getElementById('welcome').style.display='none';
@@ -47,7 +56,7 @@ function myFunctionB() {
 function myFunctionC() {
 	document.getElementById('bomb').style.display='none';
 	document.body.style="background: #ff0000"; //red
-	var intervalID = setInterval(changeBackgroundColor, 465);
+	intervalID = setInterval(changeBackgroundColor, 455);
 }
 
 function changeBackgroundColor() {
@@ -68,6 +77,10 @@ function changeBackgroundColor() {
         document.body.style="background: #ff0066" // pink
         if (loop == "first")
         	numElem.innerHTML = 1;
+				 else if (loop == "second"){
+						numElem.style.display ='block';
+						numElem.innerHTML = "wow";
+				}
         break;
     case 3:
         document.body.style="background: #009933" // green
@@ -78,8 +91,8 @@ function changeBackgroundColor() {
         numElem.style.display ='block';
         if (loop == "first") {
         	numElem.innerHTML = 2;
-        } else {
-            numElem.innerHTML = "How you";
+        } else if (loop == "second"){
+            numElem.innerHTML = "that's";
         }
         break;
     case 5:
@@ -91,8 +104,8 @@ function changeBackgroundColor() {
         numElem.style.display ='block';
         if (loop == "first") {
         	numElem.innerHTML = 4;
-        } else {
-            numElem.innerHTML = "doin'";
+        } else if (loop == "second"){
+            numElem.innerHTML = "a lot of";
         }
         break;
     case 7:
@@ -104,10 +117,15 @@ function changeBackgroundColor() {
         break;
     case 8:
         document.body.style="background: #ff0000" // red
+				if (loop == "third") {
+					numElem.style.display ='block';
+					numElem.innerHTML = "survey time";
+        	num = 9;
+        }
         if (loop == "second") {
             numElem.style.display ='block';
-            numElem.innerHTML = "bro";
-        	num = 9;
+            numElem.innerHTML = "colours";
+        	loop = "third";
         }
         if (loop == "first") {
         	numElem.innerHTML = 15;
@@ -115,26 +133,38 @@ function changeBackgroundColor() {
         }
         break;
     default:
-    	setTimeout(myFunctionD, 2000);
-    	myStopFunction();
+		  setTimeout(myFunctionD, 1800);
+			clearInterval(intervalID);
 	}
 }
 
-function myStopFunction() {
-    clearInterval(intervalID);
-}
 
 function myFunctionD() {
-	document.body.style.cursor = 'pointer';
-	window.onclick = function() {
-        numElem.style.display ='none';
-		document.getElementById('black').pause();
-        document.body.style="background: #202024";
+	document.body.style="background: #202024";
+	document.getElementById('black').pause();
+	numElem.style.display ='none';
+	document.getElementById('survey').style.display='block';
+}
+
+function myFunctionE() {
+				document.body.style="background: #4d004d";
+				document.getElementById('survey').style.display='none';
+				document.getElementById('yes').style.display='none';
+				document.getElementById('no').style.display='none';
+				document.getElementById('disco').style.display='none';
         document.getElementById('ball').style.display='block';
         document.getElementById('easy').play();
-        // document.body.style.cursor = 'default';
-	}
 }
+
+
+function toYes(x) {
+    x.innerHTML="Yes";
+}
+
+function toNo(x) {
+    x.innerHTML="No";
+}
+
 
 </script>
 
