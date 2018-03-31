@@ -91,7 +91,6 @@ button {
     color: white;
     padding: 15px 32px;
     text-decoration: none;
-    display: inline-block;
     font-size: 20px;
     border-radius: 12px;
     outline: none;
@@ -113,6 +112,11 @@ button:hover {
     -webkit-animation-fill-mode: forwards;
 }
 
+@media only screen and (max-width: 768px)  {
+  #no {
+    display: none;
+  }
+}
 
 @keyframes toWhite {
     from {background-color: #202024;}
